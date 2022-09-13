@@ -1,7 +1,7 @@
 package gt.uvg.pokelist.repository
 
 import gt.uvg.pokelist.model.Pokemon
-import gt.uvg.pokelist.model.Pokemon1
+
 
 class PokemonRepository {
 

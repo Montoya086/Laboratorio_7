@@ -11,6 +11,7 @@ import gt.uvg.pokelist.databinding.ActivityMainBinding
 import gt.uvg.pokelist.repository.PokemonRepository
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var navController: NavController
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,8 +19,14 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val navHostFragment = supportFragmentManager
+            .findFragmentById(R.id.nav_host) as NavHostFragment
+        navController = navHostFragment.navController
+        setupActionBarWithNavController(navController)
 
-        val myDataset = PokemonRepository().getPokemonList()
+    }
 
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp() || super.onSupportNavigateUp()
     }
 }

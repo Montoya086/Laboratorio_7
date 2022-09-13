@@ -10,7 +10,6 @@ import androidx.navigation.fragment.navArgs
 import com.squareup.picasso.Picasso
 import gt.uvg.pokelist.R
 import gt.uvg.pokelist.model.Pokemon
-import gt.uvg.pokelist.model.Pokemon1
 import gt.uvg.pokelist.repository.PokemonRepository
 
 class DetailFragment : Fragment() {

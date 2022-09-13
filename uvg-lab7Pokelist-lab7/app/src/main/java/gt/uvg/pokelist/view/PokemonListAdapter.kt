@@ -9,7 +9,6 @@ import com.squareup.picasso.Picasso
 import gt.uvg.pokelist.R
 import gt.uvg.pokelist.databinding.ItemPokemonViewBinding
 import gt.uvg.pokelist.model.Pokemon
-import gt.uvg.pokelist.model.Pokemon1
 
 class PokemonListAdapter(private val pokemonList: List<Pokemon>) : RecyclerView.Adapter<PokemonListAdapter.PokemonListHolder>() {
 
