@@ -37,5 +37,8 @@ class DetailFragment : Fragment() {
         Picasso.get().load(args.pokemon.imageUrlShinnyFront).into(imgFrontS)
         Picasso.get().load(args.pokemon.imageUrlShinnyBack).into(imgBackS)
     }
+    override fun onDestroyView() {
+        super.onDestroyView()
+    }
 
 }

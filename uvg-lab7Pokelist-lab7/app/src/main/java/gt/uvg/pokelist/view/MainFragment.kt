@@ -30,4 +30,7 @@ class MainFragment: Fragment(/*R.layout.fragment_main*/) {
         recyclerView.adapter = PokemonListAdapter(pokemonList)
         recyclerView.setHasFixedSize(true)
     }
+    override fun onDestroyView() {
+        super.onDestroyView()
+    }
 }
