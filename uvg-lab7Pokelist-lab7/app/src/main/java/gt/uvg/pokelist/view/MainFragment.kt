@@ -20,8 +20,6 @@ class MainFragment: Fragment(/*R.layout.fragment_main*/) {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-
         super.onViewCreated(view, savedInstanceState)
 
         val pokemonList = PokemonRepository().getPokemonList()
