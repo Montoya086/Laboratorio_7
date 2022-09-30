@@ -2,15 +2,14 @@ package gt.uvg.pokelist.view
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
-import gt.uvg.pokelist.R
 import gt.uvg.pokelist.databinding.ItemPokemonViewBinding
-import gt.uvg.pokelist.model.Pokemon
+import gt.uvg.pokelist.model.PokemonResponse
+import gt.uvg.pokelist.model.Result
 
-class PokemonListAdapter(private val pokemonList: List<Pokemon>) : RecyclerView.Adapter<PokemonListAdapter.PokemonListHolder>() {
+class PokemonListAdapter(private val pokemonList: List<Result>) : RecyclerView.Adapter<PokemonListAdapter.PokemonListHolder>() {
 
     inner class PokemonListHolder(val binding: ItemPokemonViewBinding) : RecyclerView.ViewHolder(binding.root){
 
@@ -22,11 +21,13 @@ class PokemonListAdapter(private val pokemonList: List<Pokemon>) : RecyclerView.
     }
 
     override fun onBindViewHolder(holder: PokemonListHolder, position: Int) {
+
         val item = pokemonList[position]
         holder.binding.pokemonName.text = item.name;
-        Picasso.get().load(item.imageUrlFront).into(holder.binding.pokemonPhoto)
+        val id=position+1
+        Picasso.get().load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$id.png").into(holder.binding.pokemonPhoto)
         holder.itemView.setOnClickListener{
-            val action = MainFragmentDirections.actionMainFragmentToDetailFragment(item)
+            val action = MainFragmentDirections.actionMainFragmentToDetailFragment(id)
             holder.itemView.findNavController().navigate(action)
         }
     }

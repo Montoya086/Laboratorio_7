@@ -1,16 +1,23 @@
 package gt.uvg.pokelist.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.squareup.picasso.Picasso
 import gt.uvg.pokelist.R
-import gt.uvg.pokelist.model.Pokemon
-import gt.uvg.pokelist.repository.PokemonRepository
+import gt.uvg.pokelist.api.RetrofitInstance
+import gt.uvg.pokelist.model.PokemonListResponse
+import gt.uvg.pokelist.model.PokemonResponse
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+
 
 class DetailFragment : Fragment() {
     private val args by navArgs<DetailFragmentArgs>()
@@ -32,10 +39,26 @@ class DetailFragment : Fragment() {
         val imgBack : ImageView = view.findViewById(R.id.imageView3)
         val imgFrontS : ImageView = view.findViewById(R.id.imageView4)
         val imgBackS : ImageView = view.findViewById(R.id.imageView5)
-        Picasso.get().load(args.pokemon.imageUrlFront).into(imgFront)
-        Picasso.get().load(args.pokemon.imageUrlBack).into(imgBack)
-        Picasso.get().load(args.pokemon.imageUrlShinnyFront).into(imgFrontS)
-        Picasso.get().load(args.pokemon.imageUrlShinnyBack).into(imgBackS)
+        RetrofitInstance.api.getPokemonById(args.id).enqueue(object : Callback<PokemonResponse> {
+            override fun onResponse(
+                call: Call<PokemonResponse>,
+                response: Response<PokemonResponse>
+            ) {
+                if (response.isSuccessful && response.body() != null) {
+                    Picasso.get().load(response.body()!!.sprites.front_default).into(imgFront)
+                    Picasso.get().load(response.body()!!.sprites.back_default).into(imgBack)
+                    Picasso.get().load(response.body()!!.sprites.front_shiny).into(imgFrontS)
+                    Picasso.get().load(response.body()!!.sprites.back_shiny).into(imgBackS)
+                }
+
+            }
+
+            override fun onFailure(call: Call<PokemonResponse>, t: Throwable) {
+                Log.i("RESPONSE FAILURE", t.message.toString())
+            }
+        })
+
+
     }
     override fun onDestroyView() {
         super.onDestroyView()
